@@ -40,6 +40,7 @@ const server = new ApolloServer({
 });
 
 if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
     app.get("*", (req, res) =>
         res.sendFile(path.join(__dirname, "client", "build", "index.html"))
     );
@@ -51,12 +52,9 @@ if (process.env.NODE_ENV === "production") {
 
 server.applyMiddleware({ app });
 
-const httpServer = http.createServer(app);
-server.installSubscriptionHandlers(httpServer);
-
 const PORT = process.env.PORT || 5000;
 
-httpServer.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(
         `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
     );
