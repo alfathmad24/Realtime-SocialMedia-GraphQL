@@ -1,0 +1,26 @@
+.page-title {
+    display: block !important;
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 10px;
+}
+
+.form-container {
+    width: 400px;
+    margin: auto;
+}
+
+.loadMoreSection {
+    list-style-type: none;
+    height: 30px;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 14px;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #ededed;
+    background-color: #e6ecf0;
+    position: relative;
+    justify-content: center;
+    cursor: pointer;
+}
