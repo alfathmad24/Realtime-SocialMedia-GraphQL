@@ -3,6 +3,7 @@ const http = require("http");
 const { ApolloServer, PubSub } = require("apollo-server-express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/index");
@@ -37,6 +38,20 @@ const server = new ApolloServer({
         // },
     },
 });
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/client/build")));
+
+    app.get("*", (req, res) =>
+        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    );
+} else {
+    app.get("/", (req, res) => {
+        res.send("API is running...");
+    });
+}
 
 server.applyMiddleware({ app });
 
