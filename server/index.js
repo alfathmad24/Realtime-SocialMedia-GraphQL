@@ -24,18 +24,6 @@ const server = new ApolloServer({
     cors: {
         credentials: true,
         origin: true,
-        // origin: (origin, callback) => {
-        //     const whitelist = [
-        //         "http://192.168.100.26:3000",
-        //         "http://localhost:3000",
-        //     ];
-
-        //     if (whitelist.indexOf(origin) !== -1) {
-        //         callback(null, true);
-        //     } else {
-        //         callback(new Error("Not allowed by CORS"));
-        //     }
-        // },
     },
 });
 
@@ -55,7 +43,11 @@ if (process.env.NODE_ENV === "production") {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
+
+// ⚠️ Pay attention to the fact that we are calling `listen` on the http server variable, and not on `app`.
+httpServer.listen(PORT, () => {
     console.log(
         `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
     );
