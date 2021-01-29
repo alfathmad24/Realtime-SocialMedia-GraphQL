@@ -39,6 +39,8 @@ const server = new ApolloServer({
     },
 });
 
+server.applyMiddleware({ app });
+
 if (process.env.NODE_ENV === "production") {
     app.get("*", (req, res) =>
         res.sendFile(path.join(__dirname, "client", "build", "index.html"))
@@ -48,8 +50,6 @@ if (process.env.NODE_ENV === "production") {
         res.send("API is running...");
     });
 }
-
-server.applyMiddleware({ app });
 
 const PORT = process.env.PORT || 5000;
 
