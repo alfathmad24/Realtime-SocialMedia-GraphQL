@@ -13,22 +13,22 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => ({ req, pubsub }),
-    cors: {
-        credentials: true,
-        origin: true,
-        // origin: (origin, callback) => {
-        //     const whitelist = [
-        //         "http://192.168.100.26:3000",
-        //         "http://localhost:3000",
-        //     ];
+    // cors: {
+    //     credentials: true,
+    //     origin: true,
+    //     origin: (origin, callback) => {
+    //         const whitelist = [
+    //             "http://192.168.100.26:3000",
+    //             "http://localhost:3000",
+    //         ];
 
-        //     if (whitelist.indexOf(origin) !== -1) {
-        //         callback(null, true);
-        //     } else {
-        //         callback(new Error("Not allowed by CORS"));
-        //     }
-        // },
-    },
+    //         if (whitelist.indexOf(origin) !== -1) {
+    //             callback(null, true);
+    //         } else {
+    //             callback(new Error("Not allowed by CORS"));
+    //         }
+    //     },
+    // },
 });
 
 const PORT = process.env.PORT || 5000;
