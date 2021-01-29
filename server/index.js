@@ -1,14 +1,13 @@
 const { ApolloServer, PubSub } = require("apollo-server");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/index");
 
-const { MONGODB } = require("./config");
-
 const pubsub = new PubSub();
 
-const PORT = process.env.PORT || 5000;
+dotenv.config();
 
 const server = new ApolloServer({
     typeDefs,
@@ -32,8 +31,10 @@ const server = new ApolloServer({
     },
 });
 
+const PORT = process.env.PORT || 5000;
+
 mongoose
-    .connect(MONGODB, {
+    .connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
     })
     .then(() => {
