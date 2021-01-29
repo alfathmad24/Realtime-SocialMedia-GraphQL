@@ -13,8 +13,6 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: ({ req }) => ({ req, pubsub }),
-    introspection: true,
-    playground: true,
     // cors: {
     //     credentials: true,
     //     origin: true,
@@ -44,7 +42,9 @@ mongoose
         return server.listen({ port: PORT });
     })
     .then((res) => {
-        console.log(`Server running at ${res.url}`);
+        console.log(
+            `Server running at ${res.url} and subscription at ${res.subscriptionsUrl}`
+        );
     })
     .catch((err) => {
         console.log(err);
